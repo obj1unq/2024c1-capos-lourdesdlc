@@ -46,5 +46,29 @@ object rolando {
 	method poderInvocacion(){
 		return hogar.poderInvocacion(self)
 	}
+	method enemigosVencibles(tierra){
+		return tierra.vencibles(self)
+	}
+	method vencible(enemigo){
+		return enemigo.poderPelea() < self.poderPelea()
+	}
+	method tieneArmaFatal(enemigo){
+		return artefactos.any({artefacto => self.esFatal(artefacto, enemigo)})
+	}
+	method esFatal(artefacto, enemigo){
+		return artefacto.poder(self) > enemigo.poderPelea()
+	}
+	 method cantidadArmasFatales(enemigo){
+	//ejemplo de count, cuenta las armas fatales de enemigo
+		return artefactos.count({artefacto => self.esFatal(artefacto, enemigo)})
+	}
+	method armaFatal(enemigo){
+	//devuelve la primer arma fatal de enemigo que encuentra
+		return artefactos.find({artefacto => self.esFatal(artefacto, enemigo)})
+	}
+	method armasFatales(enemigo){
+	//devuelve las que son fatales de enemigo
+		return artefactos.filter({artefacto => self.esFatal(artefacto, enemigo)})
+	}
 }
 
